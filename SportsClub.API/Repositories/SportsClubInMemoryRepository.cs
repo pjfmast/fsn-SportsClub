@@ -15,7 +15,7 @@ public class SportsClubInMemoryRepository : ISportsClubRepository
         return locations;
     }
 
-    public async Task<IEnumerable<Workout>> GetAllLessons()
+    public async Task<IEnumerable<Workout>> GetAllWorkouts()
     {
         await Task.Delay(100);
 

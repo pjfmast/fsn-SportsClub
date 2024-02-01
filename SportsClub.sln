@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportsClub.App", "SportsClub.App\SportsClub.App.csproj", "{0DD1A44E-591B-45AD-A8E2-64B7EDBD8BB5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SportsClub.App", "SportsClub.App\SportsClub.App.csproj", "{0DD1A44E-591B-45AD-A8E2-64B7EDBD8BB5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportsClub.API", "SportsClub.API\SportsClub.API.csproj", "{C859F448-BB53-48F6-B3AC-E8A88DB18B8E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SportsClub.API", "SportsClub.API\SportsClub.API.csproj", "{C859F448-BB53-48F6-B3AC-E8A88DB18B8E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportsClub.SharedModels", "SportsClub.SharedModels\SportsClub.SharedModels.csproj", "{5E2389C8-EA68-41A2-967D-E7846F0C5B1C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SportsClub.SharedModels", "SportsClub.SharedModels\SportsClub.SharedModels.csproj", "{5E2389C8-EA68-41A2-967D-E7846F0C5B1C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

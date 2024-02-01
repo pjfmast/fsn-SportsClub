@@ -1,19 +1,29 @@
 using SportsClub.API.Repositories.Contracts;
 using SportsClub.API.Repositories;
 using Microsoft.Net.Http.Headers;
+using SportsClub.API.Data;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Added for SportsClub
-builder.Services.AddScoped<ISportsClubRepository, SportsClubInMemoryRepository>();
+// Les 2. For using EF with SportClubContext
+builder.Services.AddDbContext<SportsClubDbContext>(options =>
+options.UseSqlServer(builder.Configuration.GetConnectionString("SportsClubDbConnection"))
+);
+// Option 1: in lesson 1 we used the SportsClubInMemoryRepository
+//builder.Services.AddScoped<ISportsClubRepository, SportsClubInMemoryRepository>();
 
+// Option 2. In lesson 2 we use using EF and SportClubDbRepository
+builder.Services.AddScoped<ISportsClubRepository, SportsClubDbRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

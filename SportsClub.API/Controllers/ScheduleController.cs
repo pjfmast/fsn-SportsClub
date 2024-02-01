@@ -16,7 +16,7 @@ public class ScheduleController(ISportsClubRepository workoutRepository) : Contr
     {
         try
         {
-            var workouts = await workoutRepository.GetAllLessons();
+            var workouts = await workoutRepository.GetAllWorkouts();
 
             if (workouts == null)
             {
@@ -43,7 +43,7 @@ public class ScheduleController(ISportsClubRepository workoutRepository) : Contr
     public async Task<ActionResult<LessonDto>> GetLessonsBetween(DateTime dateStart, DateTime dateEnd)
     {
         var locations = await workoutRepository.GetLocations();
-        var workouts = await workoutRepository.GetAllLessons();
+        var workouts = await workoutRepository.GetAllWorkouts();
 
         var lessonsFound = await workoutRepository.GetSchedule(dateStart, dateEnd);
         var lessenDtos = lessonsFound.ConvertToDto(locations, workouts);

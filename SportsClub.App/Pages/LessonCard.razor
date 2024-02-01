@@ -1,6 +1,6 @@
 @using SportsClub.Models.Dtos
 
-<div class="card shadow" style="width: 18rem;">
+<div class="card shadow" style="width: 18rem;"  @onclick="@(async () => await OnSelected.InvokeAsync(Lesson))">
     <img src="@Lesson.Image" class="card-img-top" alt="@Lesson.Title">
     <div class="card-body">
         <h5 class="card-title">@Lesson.Title</h5>
@@ -14,4 +14,7 @@
 @code {
     [Parameter, EditorRequired]
     public required LessonDto Lesson { get; init; }
+
+    [Parameter, EditorRequired]
+    public EventCallback<LessonDto> OnSelected { get; set; }
 }

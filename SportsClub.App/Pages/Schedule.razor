@@ -17,7 +17,7 @@ else if (lessons.Count() > 0)
 
         @foreach (var lesson in lessons)
         {
-            <LessonCard Lesson="lesson" />
+            <LessonCard Lesson="lesson" OnSelected="HandleLessonSelected" />
         }
     </div>
 }
@@ -27,6 +27,7 @@ else
 }
 
 @code {
+    private LessonDto? _selectedLesson;
 
     /* Required members must be at least as visible as their containing type.
      * For example, a public class can't contain a required field that's protected. */
@@ -46,7 +47,8 @@ else
         {
             Console.WriteLine($"There was a problem loading lesson data: {ex.Message}");
         }
-
     }
 
+    private void HandleLessonSelected(LessonDto lesson)
+       => _selectedLesson = lesson;
 }
