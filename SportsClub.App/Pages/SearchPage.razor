@@ -1,0 +1,78 @@
+﻿@page "/search/{SearchTerm}"
+@page "/search/{SearchTerm}/noCosts/{NoCosts:bool}"
+@using SportsClub.Models.Dtos
+
+@inject HttpClient Http
+
+<PageTitle>Search in workouts - Bress</PageTitle>
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Search</li>
+    </ol>
+</nav>
+
+<h3 class="mt-5 mb-4">Search results for "@SearchTerm"</h3>
+
+<SearchFilter SearchTerm="@SearchTerm" />
+
+@if (_searchResults == null)
+{
+    <p>Loading search results...</p>
+}
+else
+{
+    <WorkoutDetails Workout="_selectedWorkoutDto" />
+
+    <div class="grid">
+        @foreach (var workout in _searchResults)
+        {
+            <WorkoutCard Workout="workout" OnSelected="HandleWorkoutSelected" />
+        }
+    </div>
+}
+
+@code {
+    private IEnumerable<WorkoutDto>? _searchResults;
+    private IEnumerable<WorkoutDto> _cachedSearchResults = Array.Empty<WorkoutDto>();
+    private WorkoutDto? _selectedWorkoutDto;
+
+    [Parameter] public required string SearchTerm { get; set; }
+    [Parameter] public bool? NoCosts { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var result = await Http.GetFromJsonAsync<IEnumerable<WorkoutDto>>("api/Schedule/GetWorkouts");
+            var allWorkouts = result ?? Enumerable.Empty<WorkoutDto>();
+
+            _searchResults = allWorkouts!.Where(x => x.Title.Contains(SearchTerm, StringComparison.CurrentCultureIgnoreCase)
+                                            || x.Description.Contains(SearchTerm, StringComparison.CurrentCultureIgnoreCase)
+                                            || x.Category.Contains(SearchTerm, StringComparison.CurrentCultureIgnoreCase));
+            _cachedSearchResults = _searchResults;
+        }
+        catch (HttpRequestException ex)
+        {
+            Console.WriteLine($"There was a problem loading workout data: {ex.Message}");
+        }
+    }
+
+    protected override void OnParametersSet()
+    {
+        _selectedWorkoutDto = null;
+
+        if (_cachedSearchResults.Any() && NoCosts is null or false)
+        {
+            _searchResults = _cachedSearchResults;
+        }
+        else if (_cachedSearchResults.Any())
+        {
+            _searchResults = _cachedSearchResults.Where(x => x.Price is null or 0M);
+        }
+    }
+
+    private void HandleWorkoutSelected(WorkoutDto workout)
+        => _selectedWorkoutDto = workout;
+}

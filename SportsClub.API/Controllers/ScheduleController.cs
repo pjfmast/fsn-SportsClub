@@ -10,6 +10,35 @@ namespace SportsClub.API.Controllers;
 [ApiController]
 public class ScheduleController(ISportsClubRepository workoutRepository) : ControllerBase // Controller extends ControllerBase with support for Views
 {
+
+    [HttpGet]
+    [Route(nameof(GetWorkouts))]
+    public async Task<ActionResult<IEnumerable<WorkoutDto>>> GetWorkouts()
+    {
+        try
+        {
+            var workouts = await workoutRepository.GetAllWorkouts();
+
+            if (workouts == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                var workoutDtos = workouts.ConvertToDto();
+
+                return Ok(workoutDtos);
+            }
+
+        }
+        catch (Exception)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError,
+                            "Error retrieving data from the database");
+
+        }
+    }
+
     [HttpGet]
     [Route(nameof(GetAllLessons))]
     public async Task<ActionResult<IEnumerable<WorkoutDto>>> GetAllLessons()

@@ -1,6 +1,8 @@
-﻿@page "/schedule"
+﻿@page "/schedule/today"
+
 @using SportsClub.Models.Dtos
 @inject HttpClient Http
+@inject NavigationManager NavManager
 
 <PageTitle>Todays trainings</PageTitle>
 
@@ -12,6 +14,8 @@
 
 else if (lessons.Count() > 0)
 {
+    <LessonDetails Lesson="_selectedLesson" />
+
     <h3 class="mb-5">Workouts you can enroll on @DateOnly.FromDateTime(DateTime.Now)</h3>
     <div class="grid">
 
