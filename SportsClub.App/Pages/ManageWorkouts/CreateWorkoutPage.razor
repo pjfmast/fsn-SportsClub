@@ -1,0 +1,100 @@
+﻿@page "/add-workout"
+
+<PageTitle>Add Workout - BRESS</PageTitle>
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Add Workout</li>
+    </ol>
+</nav>
+
+<h3 class="mt-5 mb-4">Add a workout</h3>
+
+@if (_submitSuccessful)
+{
+    <SuccessAlert Message="Your workout has been added successfully!" />
+}
+else if (_errorMessage is not null)
+{
+    <ErrorAlert Message="@_errorMessage" />
+}
+
+<EditForm Model="_workout" OnValidSubmit="SubmitForm">
+    <DataAnnotationsValidator /> @*validation option 1 - used for checking length of title*@
+    <FluentValidationValidator /> @*validation option 2 - uses WorkoutValidator (see in WorkoutDto)*@
+
+    <FormSection Title="Basic Details"
+                 HelpText="This information is used to identify the workout and can be searched to help Bress members find it.">
+
+        <FormFieldSet Width="col-6">
+            <label for="workoutTitle" class="font-weight-bold text-secondary">Name</label>
+            <InputText @bind-Value="_workout.Title" class="form-control" id="workoutTitle" />
+            <ValidationMessage For="@(() => _workout.Title)" />
+        </FormFieldSet>
+
+        <FormFieldSet>
+            <label for="workoutDescription" class="font-weight-bold text-secondary">Description</label>
+            <InputTextArea @bind-Value="_workout.Description" rows="6" class="form-control" id="workoutDescription" />
+            <ValidationMessage For="@(() => _workout.Description)" />
+        </FormFieldSet>
+
+        <FormFieldSet>
+            <label for="workoutCategory" class="font-weight-bold text-secondary">Category</label>
+            <InputTextArea @bind-Value="_workout.Category" class="form-control" id="workoutCategory" />
+            <ValidationMessage For="@(() => _workout.Category)" />
+        </FormFieldSet>
+
+    </FormSection>
+
+    <FormSection Title="Workout image"
+                 HelpText="Attract BRESS members to enroll">
+        <FormFieldSet Width="col-6">
+            <label for="workoutImage" class="font-weight-bold text-secondary">Image url</label>
+            <InputText @bind-Value="_workout.Image" class="form-control" id="workoutImage" />
+            <ValidationMessage For="@(() => _workout.Image)" />
+        </FormFieldSet>
+    </FormSection>
+
+    <FormSection Title="Workout intensity"
+                 HelpText="Help Bress members to choose a workout at the right level.">
+        <ChildContent>
+            <FormFieldSet Width="col-6">
+                <label for="workoutDuration" class="font-weight-bold text-secondary">Duration</label>
+                <InputNumber @bind-Value="_workout.Duration" class="form-control" id="workoutDuration" />
+                <ValidationMessage For="@(() => _workout.Duration)" />
+            </FormFieldSet>
+        </ChildContent>
+    </FormSection>
+
+    <div class="mt-4 mb-5">
+        <div class="row">
+            <div class="offset-4 col-8 text-right">
+                <button class="btn btn-outline-secondary" type="button" @onclick="@(() => _workout = new WorkoutDto())">Reset</button>
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </div>
+        </div>
+    </div>
+</EditForm>
+
+@code {
+    private WorkoutDto _workout = new WorkoutDto();
+    private bool _submitSuccessful;
+    private string? _errorMessage;
+
+    private async Task SubmitForm()
+    {
+        await Task.Delay(100);
+        var response = new { WorkoutId = 1, ResponseCode = 201 }; //await Mediator.Send(new AddWorkoutRequest(_workout));
+        if (response.WorkoutId == -1)
+        {
+            _errorMessage = "There was a problem saving your new workout.";
+            _submitSuccessful = false;
+            return;
+        }
+
+        _workout = new WorkoutDto();
+        _errorMessage = null;
+        _submitSuccessful = true;
+    }
+}

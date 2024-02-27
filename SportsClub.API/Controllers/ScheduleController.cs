@@ -87,7 +87,6 @@ public class ScheduleController(ISportsClubRepository workoutRepository) : Contr
     {
         DateTime startOfDay = DateTime.Now.StartOfDay();
         DateTime endOfDay = DateTime.Now.EndOfDay();
-
         return await GetLessonsBetween(startOfDay, endOfDay);
     }
 

@@ -3,6 +3,8 @@ using SportsClub.API.Repositories;
 using Microsoft.Net.Http.Headers;
 using SportsClub.API.Data;
 using Microsoft.EntityFrameworkCore;
+using SportsClub.API.Configuration;
+using SportsClub.API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +26,11 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("SportsClubDbConn
 
 // Option 2. In lesson 2 we use using EF and SportClubDbRepository
 builder.Services.AddScoped<ISportsClubRepository, SportsClubDbRepository>();
+
+// Les 3. Added for EmailService
+builder.Services.Configure<MailSettings>(builder.Configuration.GetSection(nameof(MailSettings)));
+builder.Services.AddTransient<IMailService, MailService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

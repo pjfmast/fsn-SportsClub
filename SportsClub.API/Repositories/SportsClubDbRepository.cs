@@ -5,14 +5,8 @@ using SportsClub.API.Repositories.Contracts;
 
 namespace SportsClub.API.Repositories
 {
-    public class SportsClubDbRepository : ISportsClubRepository
+    public class SportsClubDbRepository(SportsClubDbContext sportsClubDbContext) : ISportsClubRepository
     {
-        private readonly SportsClubDbContext sportsClubDbContext;
-
-        public SportsClubDbRepository(SportsClubDbContext sportsClubDbContext)
-        {
-            this.sportsClubDbContext = sportsClubDbContext;
-        }
         public async Task<IEnumerable<Location>> GetLocations()
         {
             return await sportsClubDbContext.Locations.ToListAsync();
@@ -20,13 +14,13 @@ namespace SportsClub.API.Repositories
 
         public async Task<IEnumerable<Workout>> GetAllWorkouts()
         {
-            return await sportsClubDbContext.workouts.ToListAsync();
+            return await sportsClubDbContext.Workouts.ToListAsync();
         }
 
         public async Task<IEnumerable<Lesson>> GetSchedule(DateTime startDateTime, DateTime endDateTime)
         {
             var found = new List<Lesson>();
-            found = await sportsClubDbContext.lessons
+            found = await sportsClubDbContext.Lessons
                 .Where((Lesson w) => w.StartDateTime >= startDateTime && w.StartDateTime <= endDateTime)
                 .ToListAsync();
 

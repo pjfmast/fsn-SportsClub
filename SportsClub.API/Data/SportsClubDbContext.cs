@@ -17,7 +17,7 @@ namespace SportsClub.API.Data
         }
 
         public DbSet<Location> Locations => Set<Location>();
-        public DbSet<Workout> workouts => Set<Workout>();
-        public DbSet<Lesson> lessons => Set<Lesson>();
+        public DbSet<Workout> Workouts => Set<Workout>();
+        public DbSet<Lesson> Lessons => Set<Lesson>();
     }
 }

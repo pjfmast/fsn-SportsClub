@@ -32,8 +32,8 @@ public class MailData
     {
         // Receiver
         To = to;
-        Bcc = bcc ?? new List<string>();
-        Cc = cc ?? new List<string>();
+        Bcc = bcc ?? [];
+        Cc = cc ?? [];
 
         // Sender
         From = from;
