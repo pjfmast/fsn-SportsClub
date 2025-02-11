@@ -1,0 +1,57 @@
+﻿﻿<div class="drawer-wrapper @(_isOpen ? "slide" : "")">
+    <div class="drawer-mask"></div>
+    <div class="drawer">
+        @if (_selectedWorkout is not null)
+        {
+                <div class="drawer-content">
+                    <img src="@_selectedWorkout.Image" />
+                    <div class="workout-details">
+                        <h3>@_selectedWorkout.Title</h3>
+                        <h6 class="mb-3 text-muted"><span class="oi oi-tag"></span> @_selectedWorkout.Category</h6>
+                        <div class="mt-4">
+                            <span class="mr-5"><span class="oi oi-clock mr-2"></span> @_selectedWorkout.Duration</span>
+                            <span><span class="oi oi-euro mr-2"></span> @_selectedWorkout.Price </span>
+                        </div>
+                        <p class="mt-4">@_selectedWorkout.Description</p>
+                    </div>
+                </div>
+                <Popup @ref="popupRef" />
+                <div class="drawer-controls">
+                <button class="btn btn-secondary" @onclick="ShowSchedule">Show schedule</button>
+                    <button class="btn btn-secondary" @onclick="Close">Close</button>
+                </div>
+
+        }
+    </div>
+</div>
+
+
+
+@code {
+    private bool _isOpen;
+    private WorkoutDto? _selectedWorkout;
+    private Popup? popupRef;
+
+    [Parameter, EditorRequired]
+    public WorkoutDto? Workout { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        if (Workout != null)
+        {
+            _selectedWorkout = Workout;
+            _isOpen = true;
+        }
+    }
+
+    private void ShowSchedule()
+    {
+        popupRef?.Show($"Enjoy: {_selectedWorkout?.Title}", "Enrollment succeeded!");
+    }
+
+    private void Close()
+    {
+        _selectedWorkout = null;
+        _isOpen = false;
+    }
+}

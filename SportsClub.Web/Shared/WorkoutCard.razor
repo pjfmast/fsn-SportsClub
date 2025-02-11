@@ -1,0 +1,19 @@
+﻿﻿<div class="card shadow" style="width: 18rem;" @onclick="@(async () => await OnSelected.InvokeAsync(Workout))">
+    <img src="@Workout.Image" class="card-img-top" alt="@Workout.Title">
+    <div class="card-body">
+        <h5 class="card-title">@Workout.Title</h5>
+        <h6 class="card-subtitle mb-3 text-muted"><span class="oi oi-tag"></span> @Workout.Category</h6>
+        <div class="d-flex justify-content-between">
+            <span><span class="oi oi-clock mr-2"></span> @Workout.Duration minutes</span>
+        </div>
+
+    </div>
+</div>
+
+@code {
+    [Parameter, EditorRequired]
+    public required WorkoutDto Workout { get; init; }
+
+    [Parameter, EditorRequired]
+    public EventCallback<WorkoutDto> OnSelected { get; set; }
+}

@@ -1,0 +1,68 @@
+﻿@page "/schedule/today"
+
+@inject HttpClient Http
+@inject NavigationManager NavManager
+
+<PageTitle>@TitleForSchedule()</PageTitle>
+
+<h3>SchedulePage</h3>
+@if (_lessons == null)
+{
+    <h3>Loading lessons...</h3>
+}
+
+else if (_lessons.Count() > 0)
+{
+    <LessonDetails Lesson="_selectedLesson" />
+
+    <h3 class="mb-5">Workouts you can enroll on @DateOnly.FromDateTime(DateTime.Now)</h3>
+    <div class="grid">
+
+        @foreach (var lesson in _lessons)
+        {
+            <LessonCard Lesson="lesson" OnSelected="HandleLessonSelected" />
+        }
+    </div>
+}
+else
+{
+    <h4>No more workouts today, check-in tomorrow!</h4>
+}
+
+@code {
+    private LessonDto? _selectedLesson;
+
+    /* Required members must be at least as visible as their containing type.
+     * For example, a public class can't contain a required field that's protected. */
+    public required IEnumerable<LessonDto> _lessons = Enumerable.Empty<LessonDto>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Onnodig bij eenvoudige view-logica om een Service-class te maken:
+        try
+        {
+            var result = await Http.GetFromJsonAsync<IEnumerable<LessonDto>>("api/Schedule/GetTodaysLessons");
+            _lessons = result ?? Enumerable.Empty<LessonDto>();
+        }
+        catch (HttpRequestException ex)
+        {
+            Console.WriteLine($"There was a problem loading lesson data: {ex.Message}");
+        }
+
+    }
+
+    private String TitleForSchedule()
+    {
+        if (NavManager.Uri.Contains("today"))
+        {
+            return "Todays trainings you can enroll";
+        }
+        else
+        {
+            return "Schedule for selected periode";
+        }
+    }
+
+    private void HandleLessonSelected(LessonDto lesson)
+        => _selectedLesson = lesson;
+}

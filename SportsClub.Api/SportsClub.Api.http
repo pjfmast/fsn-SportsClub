@@ -1,0 +1,19 @@
+@SportsClub.Api_HostAddress = https://localhost:7019
+
+
+GET {{SportsClub.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+
+GET {{SportsClub.Api_HostAddress}}/api/schedule/GetAllLessons
+
+###
+
+GET {{SportsClub.Api_HostAddress}}/api/schedule/GetTodaysLessons
+
+###
+
+GET {{SportsClub.Api_HostAddress}}/api/schedule/GetAllLessons
+
+###

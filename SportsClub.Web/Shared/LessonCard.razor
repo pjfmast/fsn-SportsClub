@@ -1,0 +1,21 @@
+﻿@using SportsClub.SharedModels.Dtos
+
+﻿<div class="card shadow" style="width: 18rem;" @onclick="@(async () => await OnSelected.InvokeAsync(Lesson))">
+    <img src="@Lesson.Image" class="card-img-top" alt="@Lesson.Title">
+    <div class="card-body">
+        <h5 class="card-title">@Lesson.Title</h5>
+        <h6 class="card-subtitle mb-3 text-muted"><span class="oi oi-map-marker"></span> @Lesson.Location</h6>
+        <div class="d-flex justify-content-between">
+            <span><span class="oi oi-clock mr-2"></span> @Lesson.StartTime.ToString("HH:mm") (@Lesson.Duration minutes)</span>
+        </div>
+
+    </div>
+</div>
+
+@code {
+    [Parameter, EditorRequired]
+    public required LessonDto Lesson { get; init; }
+
+    [Parameter, EditorRequired]
+    public EventCallback<LessonDto> OnSelected { get; set; }
+}

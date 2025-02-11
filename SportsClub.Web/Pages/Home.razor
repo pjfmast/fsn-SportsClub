@@ -1,0 +1,60 @@
+﻿@page "/"
+
+@inject HttpClient Http
+@inject NavigationManager NavManager
+
+<PageTitle>All BRESS sports</PageTitle>
+
+@if (_sports == null)
+{
+    <h3>Loading all sports...</h3>
+}
+
+else if (_sports.Count() > 0)
+{
+    <WorkoutDetails Workout="_selectedWorkout" />
+
+    <button class="btn btn-outline-primary" @onclick="ShowTodaysSchedule">Todays Schedule</button>
+
+
+    <div class="grid">
+
+        @foreach (var workout in _sports)
+        {
+            <WorkoutCard Workout="workout" OnSelected="HandleWorkoutSelected" />
+        }
+    </div>
+}
+else
+{
+    <h4>Loading all workouts failes!</h4>
+}
+
+@code {
+    private WorkoutDto? _selectedWorkout;
+
+    /* Required members must be at least as visible as their containing type.
+     * For example, a public class can't contain a required field that's protected. */
+    public required IEnumerable<WorkoutDto> _sports = Enumerable.Empty<WorkoutDto>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Onnodig bij eenvoudige view-logica om een Service-class te maken:
+        try
+        {
+            var result = await Http.GetFromJsonAsync<IEnumerable<WorkoutDto>>("api/Schedule/GetWorkouts");
+            _sports = result ?? Enumerable.Empty<WorkoutDto>();
+        }
+        catch (HttpRequestException ex)
+        {
+            Console.WriteLine($"There was a problem loading workout data: {ex.Message}");
+        }
+
+    }
+
+    private void HandleWorkoutSelected(WorkoutDto workout)
+        => _selectedWorkout = workout;
+
+    private void ShowTodaysSchedule()
+        => NavManager.NavigateTo($"/schedule/today");
+}

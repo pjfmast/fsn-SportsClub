@@ -1,0 +1,57 @@
+﻿﻿<div class="drawer-wrapper @(_isOpen ? "slide" : "")">
+    <div class="drawer-mask"></div>
+    <div class="drawer">
+        @if (_selectedLesson is not null)
+        {
+            <div class="drawer-content">
+                <img src="@_selectedLesson.Image" />
+                <div class="lesson-details">
+                    <h3>@_selectedLesson.Title</h3>
+                    <h6 class="mb-3 text-muted"><span class="oi oi-map-marker"></span> @_selectedLesson.Location</h6>
+                    <div class="mt-4">
+                        <span class="mr-5"><span class="oi oi-clock mr-2"></span> @_selectedLesson.StartTime</span>
+                        <span><span class="oi oi-infinity mr-2"></span> @_selectedLesson.Duration minutes</span>
+                    </div>
+                    <p class="mt-4">@_selectedLesson.Description</p>
+                </div>
+            </div>
+            <Popup @ref="popupRef" />
+            <div class="drawer-controls">
+                <button class="btn btn-secondary" @onclick="Enroll">Enroll Lesson</button>
+                <button class="btn btn-secondary" @onclick="Close">Close Lesson</button>
+            </div>
+           
+        }
+    </div>
+</div>
+
+
+
+@code {
+    private bool _isOpen;
+    private LessonDto? _selectedLesson;
+    private Popup? popupRef;
+
+    [Parameter, EditorRequired]
+    public LessonDto? Lesson { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        if (Lesson != null)
+        {
+            _selectedLesson = Lesson;
+            _isOpen = true;
+        }
+    }
+
+    private void Enroll()
+    {
+        popupRef?.Show($"Enjoy: {_selectedLesson?.Title} at {_selectedLesson?.StartTime.ToShortTimeString()}", "Enrollment succeeded!");
+    }
+
+    private void Close()
+    {
+        _selectedLesson = null;
+        _isOpen = false;
+    }
+}
