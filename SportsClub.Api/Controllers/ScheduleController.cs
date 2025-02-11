@@ -6,8 +6,9 @@ using SportsClub.SharedModels.Dtos;
 namespace SportsClub.Api.Controllers;
 
 
-[Route("api/[controller]")]
 [ApiController]
+[Route("api/[controller]")]
+
 public class ScheduleController(ISportsClubRepository workoutRepository) : ControllerBase // Controller extends ControllerBase with support for Views
 {
     [HttpGet]
