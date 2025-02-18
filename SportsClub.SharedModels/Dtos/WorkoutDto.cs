@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SportsClub.SharedModels.Dtos;
+﻿namespace SportsClub.SharedModels.Dtos;
 
 // beste practice: use C#9 records for DTO's.
 // see: https://stackoverflow.com/questions/64816714/when-to-use-record-vs-class-vs-struct

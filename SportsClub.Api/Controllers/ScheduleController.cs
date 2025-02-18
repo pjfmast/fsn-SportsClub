@@ -26,16 +26,13 @@ public class ScheduleController(ISportsClubRepository workoutRepository) : Contr
             else
             {
                 var workoutDtos = workouts.ConvertToDto();
-
                 return Ok(workoutDtos);
             }
-
         }
         catch (Exception)
         {
             return StatusCode(StatusCodes.Status500InternalServerError,
-                            "Error retrieving data from the database");
-
+                              "Error retrieving data from the database");
         }
     }
 
