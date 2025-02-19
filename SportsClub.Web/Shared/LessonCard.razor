@@ -1,6 +1,6 @@
-﻿@using SportsClub.SharedModels.Dtos
-
-﻿<div class="card shadow" style="width: 18rem;" @onclick="@(async () => await OnSelected.InvokeAsync(Lesson))">
+@using SportsClub.SharedModels.Dtos
+﻿
+<div class="card shadow" style="width:18rem;" @onclick="@(async () => await OnSelected.InvokeAsync(Lesson))">
     <img src="@Lesson.Image" class="card-img-top" alt="@Lesson.Title">
     <div class="card-body">
         <h5 class="card-title">@Lesson.Title</h5>

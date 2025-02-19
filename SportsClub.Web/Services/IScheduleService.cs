@@ -1,4 +1,4 @@
-﻿using SportsClub.SharedModels.Dtos;
+using SportsClub.SharedModels.Dtos;
 
 namespace SportsClub.Web.Services;
 

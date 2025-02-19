@@ -1,4 +1,4 @@
-﻿using SportsClub.SharedModels.Dtos;
+using SportsClub.SharedModels.Dtos;
 using System.Net.Http.Json;
 using static System.Net.WebRequestMethods;
 

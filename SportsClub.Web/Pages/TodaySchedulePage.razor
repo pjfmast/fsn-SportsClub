@@ -1,4 +1,4 @@
-﻿@page "/schedule/today"
+@page "/schedule/today"
 
 @inject HttpClient Http
 @inject NavigationManager NavManager
@@ -10,14 +10,13 @@
 {
     <h3>Loading lessons...</h3>
 }
-
+// strange issue with utf bom: https://github.com/dotnet/aspnetcore/issues/56069
 else if (_lessons.Count() > 0)
 {
     <LessonDetails Lesson="_selectedLesson" />
 
     <h3 class="mb-5">Workouts you can enroll on @DateOnly.FromDateTime(DateTime.Now)</h3>
     <div class="grid">
-
         @foreach (var lesson in _lessons)
         {
             <LessonCard Lesson="lesson" OnSelected="HandleLessonSelected" />
