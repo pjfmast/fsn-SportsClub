@@ -1,10 +1,24 @@
-﻿using SportsClub.Api.Entities;
+using SportsClub.Api.Entities;
 using SportsClub.SharedModels.Dtos;
 
 namespace SportsClub.Api.Extensions;
 
 public static class DtoConversions
 {
+    public static Workout ToWorkout (this WorkoutDto workoutDto)
+    {
+        return new Workout
+        {
+            Id = workoutDto.Id,
+            Title = workoutDto.Title,
+            Description = workoutDto.Description,
+            Category = workoutDto.Category,
+            Image = workoutDto.Image,
+            Duration = workoutDto.Duration,
+            Price = workoutDto.Price,
+        };
+    }
+
     public static IEnumerable<WorkoutDto> ConvertToDto(this IEnumerable<Workout> workouts)
     {
         return (from workout in workouts
@@ -26,7 +40,7 @@ public static class DtoConversions
                 let workout = workouts.FirstOrDefault(workouts => workouts.Id == lesson.WorkOutId)
                 let location = locations.FirstOrDefault(locations => locations.Id == lesson.LocationId)
                 select new LessonDto
-                (lesson.Id,
+                ( lesson.Id,
                   workout.Title,
                   workout.Description,
                   workout.Category,

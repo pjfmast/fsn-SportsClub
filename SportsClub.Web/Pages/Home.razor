@@ -15,7 +15,7 @@ else if (_sports.Count() > 0)
     <WorkoutDetails Workout="_selectedWorkout" />
 
     <button class="btn btn-outline-primary" @onclick="ShowTodaysSchedule">Todays Schedule</button>
-
+    <button class="btn btn-outline-primary" @onclick="AddWorkout">Add</button>
 
     <div class="grid">
 
@@ -57,4 +57,7 @@ else
 
     private void ShowTodaysSchedule()
         => NavManager.NavigateTo($"/schedule/today");
+
+    private void AddWorkout()
+    => NavManager.NavigateTo($"add-workout");
 }

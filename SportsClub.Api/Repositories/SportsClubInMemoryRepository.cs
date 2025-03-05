@@ -1,4 +1,4 @@
-﻿using SportsClub.Api.Data;
+using SportsClub.Api.Data;
 using SportsClub.Api.Entities;
 
 namespace SportsClub.Api.Repositories;
@@ -23,7 +23,14 @@ public class SportsClubInMemoryRepository : ISportsClubRepository
         return SportClubSeedData.Workouts;
     }
 
- 
+    public async Task<Workout?> GetWorkoutById(int id)
+    {
+        await Task.Delay(100);
+
+        return SportClubSeedData.Workouts.Find(w => w.Id == id);
+    }
+
+
     public async Task<IEnumerable<Lesson>> GetSchedule(DateTime startDateTime, DateTime endDateTime)
     {
         await Task.Delay(100);
@@ -34,4 +41,6 @@ public class SportsClubInMemoryRepository : ISportsClubRepository
 
         return found;
     }
+
+    
 }

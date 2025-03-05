@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using SportsClub.Api.Extensions;
 using SportsClub.Api.Repositories;
 using SportsClub.SharedModels.Dtos;
