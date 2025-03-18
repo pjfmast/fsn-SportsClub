@@ -1,0 +1,30 @@
+﻿@inject NavigationManager NavManager
+
+<div class="filters">
+    <label for="noCosts">No additonal costs</label>
+    <InputCheckbox id="noCosts"
+           @bind-Value="_noCosts" />
+    <button class="btn btn-outline-primary"
+            @onclick="FilterSearchResults">
+        Filter
+    </button>
+    <button class="btn btn-outline-secondary"
+            @onclick="ClearSearchFilter">
+        Clear
+    </button>
+</div>
+
+@code {
+    private bool _noCosts;
+
+    [Parameter, EditorRequired] public string SearchTerm { get; set; } = default!;
+
+    private void FilterSearchResults()
+        => NavManager.NavigateTo($"/search/{SearchTerm}/noCosts/{_noCosts}");
+
+    private void ClearSearchFilter()
+    {
+        _noCosts = false;
+        NavManager.NavigateTo($"/search/{SearchTerm}");
+    }
+}

@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportsClub.SharedModels", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportsClub.Api", "SportsClub.Api\SportsClub.Api.csproj", "{DA92AF5D-C896-41BF-ABA9-C01F651CDCCA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiDemoMailkit", "WebApiDemoMailkit\WebApiDemoMailkit.csproj", "{AC384102-2FB6-4BA9-9342-87FF0659D2BC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{DA92AF5D-C896-41BF-ABA9-C01F651CDCCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA92AF5D-C896-41BF-ABA9-C01F651CDCCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA92AF5D-C896-41BF-ABA9-C01F651CDCCA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC384102-2FB6-4BA9-9342-87FF0659D2BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC384102-2FB6-4BA9-9342-87FF0659D2BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC384102-2FB6-4BA9-9342-87FF0659D2BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC384102-2FB6-4BA9-9342-87FF0659D2BC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

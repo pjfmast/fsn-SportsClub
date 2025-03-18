@@ -1,7 +1,8 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Net.Http.Headers;
+using SportsClub.Api.Configuration;
 using SportsClub.Api.Data;
 using SportsClub.Api.Repositories;
+using SportsClub.Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +23,21 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("SportsClubDbConn
 // option 2. in lesson 2 we use using ef and sportclubdbrepository
 builder.Services.AddScoped<ISportsClubRepository, SportsClubDbRepository>();
 
+// Les 3. Added for EmailService
+builder.Services.Configure<MailSettings>(builder.Configuration.GetSection(nameof(MailSettings)));
+builder.Services.AddTransient<IMailService, MailService>();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowBlazorClient",
+        builder =>
+        {
+            builder.WithOrigins("http://localhost:5032", "https://localhost:7092")
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -31,11 +47,7 @@ if (app.Environment.IsDevelopment())
 }
 
 // See: https://learn.microsoft.com/en-us/aspnet/core/security/cors#attr
-app.UseCors(policy =>
-    policy.WithOrigins("http://localhost:5032", "https://localhost:7092")
-    .AllowAnyMethod()
-    .WithHeaders(HeaderNames.ContentType)
-);
+app.UseCors("AllowBlazorClient");
 
 app.UseHttpsRedirection();
 

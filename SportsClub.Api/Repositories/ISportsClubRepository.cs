@@ -8,5 +8,7 @@ public interface ISportsClubRepository
     Task<IEnumerable<Workout>> GetWorkouts();
     Task<Workout?> GetWorkoutById(int id);
 
+    Task AddWorkout(Workout workout);
+
     Task<IEnumerable<Lesson>> GetSchedule(DateTime startDateTime, DateTime endDateTime);
 }

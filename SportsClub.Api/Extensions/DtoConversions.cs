@@ -5,7 +5,7 @@ namespace SportsClub.Api.Extensions;
 
 public static class DtoConversions
 {
-    public static Workout ToWorkout (this WorkoutDto workoutDto)
+    public static Workout ToWorkout(this WorkoutDto workoutDto)
     {
         return new Workout
         {
@@ -40,7 +40,7 @@ public static class DtoConversions
                 let workout = workouts.FirstOrDefault(workouts => workouts.Id == lesson.WorkOutId)
                 let location = locations.FirstOrDefault(locations => locations.Id == lesson.LocationId)
                 select new LessonDto
-                ( lesson.Id,
+                (lesson.Id,
                   workout.Title,
                   workout.Description,
                   workout.Category,

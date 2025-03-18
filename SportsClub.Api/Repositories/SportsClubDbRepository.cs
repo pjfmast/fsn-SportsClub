@@ -31,5 +31,10 @@ public class SportsClubDbRepository(SportsClubDbContext sportsClubDbContext) : I
         return found;
     }
 
-   
+    public async Task AddWorkout(Workout workout)
+    {
+        await sportsClubDbContext.Workouts.AddAsync(workout);
+        await sportsClubDbContext.SaveChangesAsync();
+    }
+
 }

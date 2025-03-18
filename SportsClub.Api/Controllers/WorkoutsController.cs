@@ -75,6 +75,11 @@ public class WorkoutsController : Controller
     [HttpPost]
     public async Task<ActionResult<Workout>> CreateWorkout(WorkoutDto workoutDto)
     {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
         Workout workout = workoutDto.ToWorkout();
 
         _context.Workouts.Add(workout);
